@@ -1,0 +1,96 @@
+﻿<Window x:Class="ZoDream.Mailer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:ignore="http://www.galasoft.ch/ignore"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" 
+        xmlns:Custom="http://www.galasoft.ch/mvvmlight" 
+        mc:Ignorable="d ignore"
+        Height="500"
+        Width="700"
+        Title="ZoDream Mailer"
+        DataContext="{Binding Main, Source={StaticResource Locator}}" 
+        Icon="Image/mailer.ico" WindowStartupLocation="CenterScreen">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Skins/MainSkin.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Grid x:Name="LayoutRoot">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Menu>
+            <MenuItem Header="菜单">
+                <MenuItem Header="SMTP管理" Command="{Binding SmtpCommand}"/>
+                <MenuItem Header="模板管理" Command="{Binding TemplateCommand}"/>
+                <MenuItem Header="设置"/>
+            </MenuItem>
+            <MenuItem Header="关于">
+                <MenuItem Header="查看帮助"/>
+                <MenuItem Header="关于 ZoDream Mailer"/>
+            </MenuItem>
+        </Menu>
+
+        <StackPanel Orientation="Horizontal">
+            
+        </StackPanel>
+        
+        <ListView x:Name="EmailList" Grid.Row="2" ItemsSource="{Binding EmailList}" AllowDrop="True">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="邮箱" Width="200" DisplayMemberBinding="{Binding Path=Email}"/>
+                    <GridViewColumn Header="状态" Width="200" DisplayMemberBinding="{Binding Path=Status}"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Value}"/>
+                </GridView>
+            </ListView.View>
+            <ListView.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="控制">
+                        <MenuItem Header="开始" Command="{Binding StartCommand}"/>
+                        <MenuItem Header="暂停" Command="{Binding PauseCommand}"/>
+                        <MenuItem Header="停止" Command="{Binding StopCommand}"/>
+                        <MenuItem Header="重新开始" Command="{Binding RestartCommand}"/>
+                    </MenuItem>
+                    <MenuItem Header="邮箱">
+                        <MenuItem Header="增加" Command="{Binding AddCommand}"/>
+                        <MenuItem Header="修改" Command="{Binding EditCommand}" CommandParameter="{Binding SelectedIndex, ElementName=EmailList}"/>
+                        <MenuItem Header="打开" Command="{Binding ImportCommand}"/>
+                        <MenuItem Header="保存" Command="{Binding ExportCommand}"/>
+                    </MenuItem>
+                    <MenuItem Header="设置" Command="{Binding SettingCommand}"/>
+                    <MenuItem Header="删除">
+                        <MenuItem Header="选中" Command="{Binding DeleteCommand}"/>
+                        <MenuItem Header="已完成" Command="{Binding DeleteCompleteCommand}" CommandParameter="{Binding ElementName=EmailList,Path=SelectedIndex}"/>
+                        <MenuItem Header="全部" Command="{Binding ClearCommand}"/>
+                    </MenuItem>
+                </ContextMenu>
+            </ListView.ContextMenu>
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Drop">
+                    <Custom:EventToCommand Command="{Binding FileDrogCommand, Mode=OneWay}"
+                                    PassEventArgsToCommand="True" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </ListView>
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="状态："/>
+            <TextBlock Grid.Column="1" Text="{Binding Message}"/>
+            <TextBlock Grid.Column="3" Text="{Binding Time,StringFormat='yyyy年MM月dd日 HH:mm:ss'}"/>
+        </Grid>
+    </Grid>
+</Window>

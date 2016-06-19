@@ -1,0 +1,158 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:ignore="http://www.galasoft.ch/ignore"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:Custom="http://www.galasoft.ch/mvvmlight" x:Class="ZoDream.Mailer.View.SmtpView"
+        mc:Ignorable="d ignore"
+        Title="SMTP 管理"
+        Icon="/ZoDream.Mailer;component/Image/mailer.ico" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/ZoDream.Mailer;component/Skins/SmtpSkin.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Window.DataContext>
+        <Binding Path="Smtp" Source="{StaticResource Locator}"/>
+    </Window.DataContext>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <ListView x:Name="SmtpList" ItemsSource="{Binding SmtpList}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="服务器" Width="200" DisplayMemberBinding="{Binding Server}"/>
+                    <GridViewColumn Header="端口" Width="50" DisplayMemberBinding="{Binding Port}"/>
+                    <GridViewColumn Header="账号" Width="200" DisplayMemberBinding="{Binding User}"/>
+                </GridView>
+            </ListView.View>
+            <ListView.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="增加" Command="{Binding AddCommand}"/>
+                    <MenuItem Header="修改" Command="{Binding EditCommand}" CommandParameter="{Binding SelectedIndex, ElementName=SmtpList}"/>
+                    <MenuItem Header="删除选中" Command="{Binding DeleteCommand}" CommandParameter="{Binding SelectedIndex, ElementName=SmtpList}"/>
+                </ContextMenu>
+            </ListView.ContextMenu>
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDoubleClick">
+                    <Custom:EventToCommand Command="{Binding EditCommand}" CommandParameter="{Binding SelectedIndex, ElementName=SmtpList}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </ListView>
+        <GridSplitter VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Height="2" ResizeDirection="Rows"/>
+        <Grid Grid.Row="1" Visibility="{Binding AddVisibility}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="SMTP服务器："/>
+            <ComboBox Grid.Column="1" IsEditable="True" Text="{Binding Server}" Grid.ColumnSpan="3">
+                <ComboBoxItem Content="pop.163.com"/>
+                <ComboBoxItem Content="smtp.163.com"/>
+                <ComboBoxItem Content="pop.126.com"/>
+                <ComboBoxItem Content="smtp.126.com"/>
+                <ComboBoxItem Content="pop.yeah.net"/>
+                <ComboBoxItem Content="smtp.yeah.net"/>
+                <ComboBoxItem Content="pop.netease.com"/>
+                <ComboBoxItem Content="smtp.netease.com"/>
+                <ComboBoxItem Content="pop3.188.com"/>
+                <ComboBoxItem Content="smtp.188.com"/>
+                <ComboBoxItem Content="pop.sina.com.cn"/>
+                <ComboBoxItem Content="pop3.sina.com.cn"/>
+                <ComboBoxItem Content="smtp.sina.com.cn"/>
+                <ComboBoxItem Content="pop3.sohu.com"/>
+                <ComboBoxItem Content="smtp.sohu.com"/>
+                <ComboBoxItem Content="pop.mail.yahoo.com"/>
+                <ComboBoxItem Content="smtp.mail.yahoo.com"/>
+                <ComboBoxItem Content="pop.mail.yahoo.com.cn"/>
+                <ComboBoxItem Content="smtp.mail.yahoo.com.cn"/>
+                <ComboBoxItem Content="pop.qq.com"/>
+                <ComboBoxItem Content="smtp.qq.com"/>
+                <ComboBoxItem Content="pop.gmail.com"/>
+                <ComboBoxItem Content="smtp.gmail.com"/>
+                <ComboBoxItem Content="pop.139.com"/>
+                <ComboBoxItem Content="smtp.139.com"/>
+                <ComboBoxItem Content="pop.21cn.com"/>
+                <ComboBoxItem Content="smtp.21cn.com"/>
+                <ComboBoxItem Content="pop.tom.com"/>
+                <ComboBoxItem Content="smtp.tom.com"/>
+                <ComboBoxItem Content="pop3.263.net"/>
+                <ComboBoxItem Content="smtp.263.net"/>
+                <ComboBoxItem Content="pop.x263.net"/>
+                <ComboBoxItem Content="smtp.x263.net"/>
+                <ComboBoxItem Content="pop.263.net.cn"/>
+                <ComboBoxItem Content="smtp.263.net.cn"/>
+                <ComboBoxItem Content="pop3.elong.com"/>
+                <ComboBoxItem Content="smtp.elong.com"/>
+                <ComboBoxItem Content="pop.china.com"/>
+                <ComboBoxItem Content="smtp.china.com"/>
+                <ComboBoxItem Content="pop.etang.com"/>
+                <ComboBoxItem Content="smtp.etang.com"/>
+                <ComboBoxItem Content="pop3.live.com"/>
+                <ComboBoxItem Content="smtp.live.com"/>
+                <ComboBoxItem Content="smtp.hushmail.com"/>
+                <ComboBoxItem Content="pop.yeah.net"/>
+                <ComboBoxItem Content="smtp.yeah.net"/>
+                <ComboBoxItem Content="pop.21cn.com"/>
+                <ComboBoxItem Content="smtp.21cn.com"/>
+                <ComboBoxItem Content="smtp.371.net"/>
+                <ComboBoxItem Content="pop.citiz.net"/>
+                <ComboBoxItem Content="smtp.citiz.net"/>
+                <ComboBoxItem Content="pop.citiz.net"/>
+                <ComboBoxItem Content="smtp.citiz.net"/>
+                <ComboBoxItem Content="pop.foxmail.com.cn"/>
+                <ComboBoxItem Content="smtp.foxmail.com.cn"/>
+                <ComboBoxItem Content="smtp.public.guangzhou.gd.cn"/>
+                <ComboBoxItem Content="pop.2911.net"/>
+                <ComboBoxItem Content="smtp.2911.net"/>
+                <ComboBoxItem Content="pop.ccident.com"/>
+                <ComboBoxItem Content="smtp.ccident.com"/>
+                <ComboBoxItem Content="pop.email.com.cn"/>
+                <ComboBoxItem Content="smtp.email.com.cn"/>
+                <ComboBoxItem Content="pop.alibaba.com"/>
+                <ComboBoxItem Content="smtp.alibaba.com"/>
+                <ComboBoxItem Content="pop.email.com.cn"/>
+                <ComboBoxItem Content="smtp.email.com.cn"/>
+                <ComboBoxItem Content="smtp.bodachina.com"/>
+                <ComboBoxItem Content="pop.cn99.com"/>
+                <ComboBoxItem Content="pop.SoftHome.net"/>
+                <ComboBoxItem Content="smtp.SoftHome.net"/>
+            </ComboBox>
+
+            <TextBlock Text="端口：" Grid.Row="1" />
+            <TextBox Text="{Binding Port}" Grid.Column="1" Grid.Row="1"/>
+
+            <TextBlock Text="SSL：" Grid.Row="1" Grid.Column="2"/>
+            <CheckBox IsChecked="{Binding IsSSL}" Content="SSL" Grid.Column="3" Grid.Row="1"/>
+
+            <TextBlock Text="账号：" Grid.Row="2"/>
+            <TextBox Text="{Binding User}" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="3"/>
+            <TextBlock Text="密码：" Grid.Row="3"/>
+            <TextBox Text="{Binding Password}" Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="3"/>
+            <TextBlock Text="发送者邮箱：" Grid.Row="4" />
+            <TextBox Text="{Binding Email}" Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="3"/>
+            <TextBlock Text="发送者：" Grid.Row="5" />
+            <TextBox Text="{Binding Name}" Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="3"/>
+
+            <Button Content="保存" Command="{Binding SaveCommand}" Grid.Row="6" Grid.Column="3"/>
+        </Grid>
+    </Grid>
+</Window>

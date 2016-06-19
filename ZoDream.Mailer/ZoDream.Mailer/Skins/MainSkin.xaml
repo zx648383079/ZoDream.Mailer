@@ -1,0 +1,9 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:converter="clr-namespace:ZoDream.Mailer.Converter">
+    <converter:BackgroudConverter x:Key="backgroudConverter"/>
+
+    <Style TargetType="ListViewItem">
+        <Setter Property="Background" Value="{Binding Status,Converter={StaticResource backgroudConverter}}"/>
+    </Style>
+</ResourceDictionary>

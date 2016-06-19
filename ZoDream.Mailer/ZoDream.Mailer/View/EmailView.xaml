@@ -1,0 +1,31 @@
+﻿<Window x:Class="ZoDream.Mailer.View.EmailView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:ignore="http://www.galasoft.ch/ignore"
+        mc:Ignorable="d ignore"
+        Width="400"
+        Height="300"
+        Title="邮箱"
+        DataContext="{Binding Email, Source={StaticResource Locator}}" 
+        Icon="/ZoDream.Mailer;component/Image/mailer.ico" WindowStartupLocation="CenterScreen">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="邮箱"/>
+        <TextBox Text="{Binding Email}" Grid.Column="1"/>
+        <TextBlock Text="参数值" Grid.Row="1"/>
+        <TextBox Text="{Binding Params}" TextWrapping="Wrap" Grid.Row="1" Grid.Column="1"/>
+
+        <Button Content="保存" Command="{Binding SaveCommand}" Grid.Row="2" Grid.Column="1"/>
+    </Grid>
+</Window>
